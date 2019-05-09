@@ -1,0 +1,8 @@
+- hosts: ubuntu
+
+  vars:
+    ansible_user: ubuntu
+    # ubuntu requires change default password on the first login
+    # so you should manually login and change password to `raspberry1`
+    ansible_ssh_pass: raspberry1
+    ansible_connection: paramiko
