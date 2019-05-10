@@ -5,10 +5,18 @@
     ansible_user: ubuntu
     # ubuntu requires change default password on the first login
     # so you should manually login and change password to `raspberry1`
+    # https://wiki.ubuntu.com/ARM/RaspberryPi#First_boot_.28Username.2FPassword.29
     ansible_ssh_pass: raspberry1
     ansible_connection: paramiko
 
   tasks:
+    - name: Enable memory control group subsystem
+      replace:
+        # https://wiki.ubuntu.com/ARM/RaspberryPi#Raspberry_Pi_packages
+        path: /boot/firmware/cmdline.txt
+        regexp: '(rootwait)$'
+        replace: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'
+
     - name: Create eduard superuser
       user:
         name: eduard
