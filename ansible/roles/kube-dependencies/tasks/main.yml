@@ -32,5 +32,6 @@
     state: present
 
 - name: enable service docker
-  service: docker
-  enabled: yes
+  service:
+    name: docker
+    enabled: yes
