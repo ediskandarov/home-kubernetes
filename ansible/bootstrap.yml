@@ -1,4 +1,4 @@
-- hosts: ubuntu
+- hosts: all
   become: yes
 
   vars:
