@@ -8,3 +8,4 @@
   become: yes
   roles:
     - kube-master-dependencies
+    - kube-master-init

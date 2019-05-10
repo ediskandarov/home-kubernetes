@@ -1,0 +1,17 @@
+- name: initialize the cluster
+  shell: kubeadm init --pod-network-cidr=10.244.0.0/16 &> cluster_initialized.txt
+  args:
+    chdir: $HOME
+    creates: cluster_initialized.txt
+
+- name: create .kube directory
+  file:
+    path: $HOME/.kube
+    state: directory
+    mode: 0755
+
+- name: copy admin.conf to user's kube config
+  copy:
+    src: /etc/kubernetes/admin.conf
+    dest: /home/eduard/.kube/config
+    remote_src: yes
