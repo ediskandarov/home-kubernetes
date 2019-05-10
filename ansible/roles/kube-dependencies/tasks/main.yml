@@ -30,3 +30,7 @@
   apt:
     name: kubeadm=1.14.0-00
     state: present
+
+- name: enable service docker
+  service: docker
+  enabled: yes
