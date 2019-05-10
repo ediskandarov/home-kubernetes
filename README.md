@@ -14,3 +14,4 @@ To fix that, login manually and change password to `raspberry1`.
 [5]: https://medium.com/nycdev/k8s-on-pi-9cc14843d43
 [6]: https://www.raspberrypi.org/forums/viewtopic.php?t=203128
 [7]: https://bugs.launchpad.net/ubuntu/+source/linux-signed/+bug/1771859
+[8]: https://wiki.ubuntu.com/ARM/RaspberryPi
