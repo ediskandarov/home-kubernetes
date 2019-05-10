@@ -1,11 +1,10 @@
-[ubuntu]
-192.168.40.102
-192.168.40.103
-192.168.40.104
-
 [kube-masters]
 master1 ansible_host=192.168.40.102
 
 [kube-nodes]
 node1 ansible_host=192.168.40.103
 node2 ansible_host=192.168.40.104
+
+[ubuntu:children]
+kube-masters
+kube-nodes

@@ -1,0 +1,10 @@
+- hosts: all
+  become: yes
+
+  roles:
+    - kube-dependencies
+
+- hosts: kube-masters
+  become: yes
+  roles:
+    - kube-master-dependencies
