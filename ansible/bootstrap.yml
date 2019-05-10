@@ -1,4 +1,5 @@
 - hosts: ubuntu
+  become: yes
 
   vars:
     ansible_user: ubuntu
@@ -6,3 +7,26 @@
     # so you should manually login and change password to `raspberry1`
     ansible_ssh_pass: raspberry1
     ansible_connection: paramiko
+
+  tasks:
+    - name: Create eduard superuser
+      user:
+        name: eduard
+        shell: /bin/bash
+        groups: sudo
+
+    - name: Set authorized keys for eduard
+      authorized_key:
+        user: eduard
+        key: "{{ eduard_ssh_pub_key }}"
+
+    - name: Allow eduard to use sudo without a password
+      copy:
+        content: "eduard ALL=(ALL) NOPASSWD:ALL"
+        dest: /etc/sudoers.d/eduard
+
+    - name: Remove bootstrap user
+      user:
+        name: "{{ ansible_user }}"
+        shell: /usr/sbin/nologin
+        password_lock: yes
