@@ -1,8 +1,13 @@
 - name: initialize the cluster
-  shell: kubeadm init --pod-network-cidr=10.244.0.0/16 &> cluster_initialized.txt
+  command: kubeadm init --pod-network-cidr=10.244.0.0/16
   args:
-    chdir: $HOME
-    creates: cluster_initialized.txt
+    creates: /root/cluster_initialized.txt
+  register: kubeadm_init_raw
+
+- name: save kubeadm init output to a file
+  copy:
+    content: "stdout:\n{{ kubeadm_init_raw.stdout }}\n\nstderr:\n{{ kubeadm_init_raw.stderr }}"
+    dest: /root/cluster_initialized.txt
 
 - name: create .kube directory
   become: yes
@@ -16,4 +21,3 @@
   copy:
     src: /etc/kubernetes/admin.conf
     dest: /home/eduard/.kube/config
-    remote_src: yes
