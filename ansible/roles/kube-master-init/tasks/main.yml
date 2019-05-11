@@ -8,16 +8,20 @@
   copy:
     content: "stdout:\n{{ kubeadm_init_raw.stdout }}\n\nstderr:\n{{ kubeadm_init_raw.stderr }}"
     dest: /root/cluster_initialized.txt
+  when: kubeadm_init_raw.changed
 
 - name: create .kube directory
-  become: yes
-  become_user: eduard
   file:
-    path: $HOME/.kube
+    path: /home/eduard/.kube
     state: directory
     mode: 0755
+    owner: eduard
+    group: eduard
 
 - name: copy admin.conf to user's kube config
   copy:
     src: /etc/kubernetes/admin.conf
     dest: /home/eduard/.kube/config
+    remote_src: yes
+    owner: eduard
+    group: eduard
