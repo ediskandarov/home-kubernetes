@@ -5,6 +5,8 @@
     creates: cluster_initialized.txt
 
 - name: create .kube directory
+  become: yes
+  become_user: eduard
   file:
     path: $HOME/.kube
     state: directory

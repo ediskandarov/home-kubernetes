@@ -1,11 +1,7 @@
-- hosts: all
-  become: yes
-
-  roles:
-    - kube-dependencies
-
 - hosts: kube-masters
   become: yes
   roles:
+    - hosts
+    - kube-dependencies
     - kube-master-dependencies
     - kube-master-init
