@@ -1,9 +1,9 @@
 [kube-masters]
-master1 ansible_host=192.168.40.102
+master1.kube.local ansible_host=192.168.40.102
 
 [kube-nodes]
-node1 ansible_host=192.168.40.103
-node2 ansible_host=192.168.40.104
+node1.kube.local ansible_host=192.168.40.103
+node2.kube.local ansible_host=192.168.40.104
 
 [ubuntu:children]
 kube-masters
