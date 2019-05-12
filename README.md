@@ -48,8 +48,31 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.11.0/Docume
 
 ## Expose to the Internet
 
+### Dynamic DNS on Mikrotik
 
+### Load balancer on Mikrotik
 
+Load balancer implementation will use [Per Connection Classifier][14] and [Port Forwarding(DST NAT)][15].
+
+```
+/ip firewall mangle
+add chain=prerouting action=mark-connection \
+  in-interface=all-ppp protocol=tcp dst-port=80 \
+  new-connection-mark=kube_node_1 per-connection-classifier=src-address-and-port:2/0 \
+  comment="Load balancer. Service nginx. Mark connections to kube node 1"
+add chain=prerouting action=mark-connection \
+  in-interface=all-ppp protocol=tcp dst-port=80 \
+  new-connection-mark=kube_node_2 per-connection-classifier=src-address-and-port:2/1 \
+  comment="Load balancer. Service nginx. Mark connections to kube node 2"
+
+/ip firewall nat
+add chain=dstnat action=dst-nat \
+ connection-mark=kube_node_1 to-addresses=192.168.40.103 protocol=tcp to-ports=30560 \
+ comment="Load balancer. Service nginx. DST NAT to kube node 1"
+add chain=dstnat action=dst-nat \
+  connection-mark=kube_node_2 to-addresses=192.168.40.104 protocol=tcp to-ports=30560 \
+  comment="Load balancer. Service nginx. DST NAT to kube node 2"
+```
 
 [1]: https://wiki.ubuntu.com/ARM/RaspberryPi
 [2]: https://wiki.mikrotik.com/wiki/Manual:Basic_VLAN_switching#Other_devices_with_built-in_switch_chip
@@ -62,8 +85,6 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.11.0/Docume
 [9]: https://www.projectcalico.org/
 [10]: https://github.com/coreos/flannel
 [11]: https://kubernetes.io/docs/concepts/cluster-administration/networking/
-[12]: https://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT#Port_mapping.2Fforwarding
 [13]: https://wiki.mikrotik.com/wiki/Load_Balancing
-[14]: https://wiki.mikrotik.com/wiki/NTH_load_balancing_with_masquerade
-[15]: https://wiki.mikrotik.com/wiki/NTH_load_balancing_with_masquerade_(another_approach)
-
+[14]: https://wiki.mikrotik.com/wiki/Manual:PCC
+[15]: https://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
