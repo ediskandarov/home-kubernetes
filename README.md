@@ -46,6 +46,11 @@ Flannel is the simplest network plugin for kubernetes. It worked fine for Raspbe
 kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.11.0/Documentation/kube-flannel.yml
 ```
 
+## Expose to the Internet
+
+
+
+
 [1]: https://wiki.ubuntu.com/ARM/RaspberryPi
 [2]: https://wiki.mikrotik.com/wiki/Manual:Basic_VLAN_switching#Other_devices_with_built-in_switch_chip
 [3]: https://www.digitalocean.com/community/tutorials/how-to-create-a-kubernetes-cluster-using-kubeadm-on-ubuntu-18-04
@@ -57,3 +62,8 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.11.0/Docume
 [9]: https://www.projectcalico.org/
 [10]: https://github.com/coreos/flannel
 [11]: https://kubernetes.io/docs/concepts/cluster-administration/networking/
+[12]: https://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT#Port_mapping.2Fforwarding
+[13]: https://wiki.mikrotik.com/wiki/Load_Balancing
+[14]: https://wiki.mikrotik.com/wiki/NTH_load_balancing_with_masquerade
+[15]: https://wiki.mikrotik.com/wiki/NTH_load_balancing_with_masquerade_(another_approach)
+
