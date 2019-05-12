@@ -1,0 +1,15 @@
+- hosts: localhost
+  gather_facts: no
+  connection: local
+
+  tasks:
+    - name: Set up CDN to service nginx in kube cluster over Dynamic DNS
+      cloudflare_dns:
+        zone: "{{ item.zone }}"
+        type: "{{ item.type }}"
+        value: "{{ item.value }}"
+        proxied: "{{ item.proxied }}"
+        state: present
+        account_api_token: "{{ cloudflare_account_api_token }}"
+        account_email: "{{ cloudflare_account_email }}"
+      with_items: "{{ cloudflare_dns_records }}"

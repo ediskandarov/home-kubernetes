@@ -50,6 +50,31 @@ kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.11.0/Docume
 
 ### Dynamic DNS on Mikrotik
 
+```
+/ip cloud set ddns-enabled=yes
+/ip cloud> print
+          ddns-enabled: yes
+  ddns-update-interval: none
+           update-time: yes
+        public-address: aa.bb.cc.dd
+              dns-name: xxxxxxxxxxxx.sn.mynetname.net
+                status: updated
+```
+
+### CDN using Cloudflare
+
+Cloudflare SSL should be set to [Flexible SSL][17] mode.
+That mode ensures connections from client to Cloudflare CDN use HTTPS.
+
+One the other hand, Cloudflare connects to backend using plain HTTP.
+
+Since at the moment, we do not terminate SSL on backend side - Flexible SSL mode
+works for us.
+
+```
+ansible-playbook --vault-id @prompt -i hosts cloudflare.yml
+```
+
 ### Load balancer on Mikrotik
 
 Load balancer implementation will use [Per Connection Classifier][14] and [Port Forwarding(DST NAT)][15].
@@ -88,3 +113,5 @@ add chain=dstnat action=dst-nat \
 [13]: https://wiki.mikrotik.com/wiki/Load_Balancing
 [14]: https://wiki.mikrotik.com/wiki/Manual:PCC
 [15]: https://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
+[16]: https://wiki.mikrotik.com/wiki/Manual:IP/Cloud
+[17]: https://www.cloudflare.com/ssl/
