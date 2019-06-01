@@ -1,5 +1,14 @@
 # testproject
 
+## Ansible environment setup
+
+```
+cd ansible
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
 ## Ubuntu pre bootstrap
 
 Ubuntu 18.04 has default user and password `ubuntu`. The first login requires
