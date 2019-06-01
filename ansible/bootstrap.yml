@@ -17,6 +17,10 @@
         regexp: '(rootwait)$'
         replace: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'
 
+    - name: Reboot unit to apply memory control group subsystem fix
+      reboot:
+        reboot_timeout: 3600
+
     - name: Create eduard superuser
       user:
         name: eduard
