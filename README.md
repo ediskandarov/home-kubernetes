@@ -124,3 +124,4 @@ add chain=dstnat action=dst-nat \
 [15]: https://wiki.mikrotik.com/wiki/Manual:IP/Firewall/NAT
 [16]: https://wiki.mikrotik.com/wiki/Manual:IP/Cloud
 [17]: https://www.cloudflare.com/ssl/
+[18]: https://www.linode.com/docs/applications/containers/how-to-deploy-nginx-on-a-kubernetes-cluster/
