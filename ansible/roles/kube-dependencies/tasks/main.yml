@@ -35,3 +35,8 @@
   service:
     name: docker
     enabled: yes
+
+- name: install nfs-common
+  apt:
+    name: nfs-common
+    state: present
