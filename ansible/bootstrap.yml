@@ -17,6 +17,15 @@
         regexp: '(rootwait)$'
         replace: '\1 cgroup_enable=cpuset cgroup_memory=1 cgroup_enable=memory'
 
+    # Ubuntu is running on a hardware with constrained resources
+    # so anything unattended is discouraged
+    - name: Disable auto upgrades
+      copy:
+        src: /usr/share/unattended-upgrades/20auto-upgrades-disabled
+        # https://help.ubuntu.com/community/AutomaticSecurityUpdates
+        dest: /etc/apt/apt.conf.d/20auto-upgrades
+        remote_src: yes
+
     - name: Reboot unit to apply memory control group subsystem fix
       reboot:
         reboot_timeout: 3600
