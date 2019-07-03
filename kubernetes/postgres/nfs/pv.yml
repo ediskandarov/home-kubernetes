@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-default-volume
+spec:
+  storageClassName: ""
+  capacity:
+    storage: 60Gi
+  accessModes:
+    - ReadWriteMany
+  nfs:
+    server: 192.168.40.101
+    path: "/volume1/NFS"
+    readOnly: false
+  persistentVolumeReclaimPolicy: Retain
