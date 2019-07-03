@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-iscsi
+spec:
+  type: NodePort
+  ports:
+  - port: 5432
+    nodePort: 30432
+  selector:
+    app: postgres-iscsi
